@@ -29,3 +29,7 @@
 
 en:
   hello: "Hello world"
+  search: "Search"
+  log_in: "Log In"
+  new_order: "New Order"
+  products: "Products"

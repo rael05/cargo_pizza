@@ -10,13 +10,31 @@
       </a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">New Order</a>
+          <a class="nav-link" href="#"><%= t(:new_order) %></a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= t(:products) %>
+          </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Pizzas Tamaños</a></li>
+          <li><a class="dropdown-item" href="#">Pizzas Sabores</a></li>
+          <li><a class="dropdown-item" href="#">Pizzas Bordes</a></li>
+          <li><a class="dropdown-item" href="<%= products_path %>">Otros</a></li>
+        </ul>
+      </li>
       </ul>
 
-      <form class="d-flex ms-auto" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <ul class="navbar-nav mb-2 mb-lg-0 ms-auto me-2">
+        <li class="ps-1 nav-item d-flex">
+          <%= link_to('ES', { locale: :es }, class: I18n.locale == :es ? 'nav-link active' : 'nav-link')%>
+          <p class="nav-item nav-link mb-0">|</p>
+          <%= link_to('EN', { locale: :en }, class: I18n.locale == :en ? 'nav-link active' : 'nav-link')%>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="<%= t(:search) %>" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><%= t(:search) %></button>
       </form>
 
       <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
@@ -33,7 +51,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <a class="nav-link active" href="<%= new_employee_session_path %>">Log In</a>
+            <a class="nav-link active" href="<%= new_employee_session_path %>"><%= t(:log_in) %></a>
           </li>
         <% end %>
       </ul>

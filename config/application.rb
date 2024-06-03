@@ -23,5 +23,9 @@ module CargoPizzas
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    I18n.load_path += Dir[Rails.root.join('lib', 'locale', '*.{rb,yml}')]
+    I18n.available_locales = [:es, :en]
+    I18n.default_locale = :es
   end
 end

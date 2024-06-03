@@ -122,6 +122,10 @@ GEM
     execjs (2.9.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    globalize (6.3.0)
+      activemodel (>= 4.2, < 7.2)
+      activerecord (>= 4.2, < 7.2)
+      request_store (~> 1.0)
     google-protobuf (4.27.0)
       bigdecimal
       rake (>= 13)
@@ -245,6 +249,8 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.8)
       io-console (~> 0.5)
+    request_store (1.7.0)
+      rack (>= 1.4)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -321,6 +327,7 @@ DEPENDENCIES
   dartsass-sprockets
   debug
   devise (~> 4.9)
+  globalize
   importmap-rails
   jbuilder
   jquery-rails
