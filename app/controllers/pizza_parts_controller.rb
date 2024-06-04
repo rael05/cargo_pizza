@@ -1,8 +1,15 @@
 class PizzaPartsController < ApplicationController
   before_action :set_pizza_part, only: %i[ show edit update destroy ]
+  before_action :categories_for_pizzas, only: %i[ new edit ]
 
   # GET /pizza_parts or /pizza_parts.json
   def index
+    if params[:category].present?
+      @pizza_title = t(PizzaPart::CATEGORIES_NAME[params[:category].to_sym])
+      @pizza_parts = PizzaPart.where(category: params[:category])
+      return
+    end
+    @pizza_title = t(:pizza_part)
     @pizza_parts = PizzaPart.all
   end
 
@@ -13,10 +20,12 @@ class PizzaPartsController < ApplicationController
   # GET /pizza_parts/new
   def new
     @pizza_part = PizzaPart.new
+    @action_name = t(:create_pizza_part)
   end
 
   # GET /pizza_parts/1/edit
   def edit
+    @action_name = t(:update_pizza_part)
   end
 
   # POST /pizza_parts or /pizza_parts.json
@@ -66,5 +75,9 @@ class PizzaPartsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def pizza_part_params
       params.require(:pizza_part).permit(:name, :description, :price, :category)
+    end
+
+    def categories_for_pizzas
+      @categories_array = PizzaPart::CATEGORIES_NAME.map { |key, value| [t(value), key] }
     end
 end

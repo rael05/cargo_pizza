@@ -17,10 +17,10 @@
             <%= t(:products) %>
           </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Pizzas Tamaños</a></li>
-          <li><a class="dropdown-item" href="#">Pizzas Sabores</a></li>
-          <li><a class="dropdown-item" href="#">Pizzas Bordes</a></li>
-          <li><a class="dropdown-item" href="<%= products_path %>">Otros</a></li>
+          <li><a class="dropdown-item" href="<%= pizza_sizes_path %>">Pizza <%= t(:pizza_size) %>s</a></li>
+          <li><a class="dropdown-item" href="<%= pizza_flavors_path %>">Pizza <%= t(:pizza_flavor) %>s</a></li>
+          <li><a class="dropdown-item" href="<%= pizza_borders_path %>">Pizza <%= t(:pizza_border) %>s</a></li>
+          <li><a class="dropdown-item" href="<%= products_path %>"><%= t(:others) %></a></li>
         </ul>
       </li>
       </ul>
