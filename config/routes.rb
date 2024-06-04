@@ -5,5 +5,6 @@ Rails.application.routes.draw do
       sessions: 'employees/sessions'
     }
     resources :products
+    resources :pizza_parts
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_231744) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_054451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_231744) do
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
+  create_table "pizza_part_translations", force: :cascade do |t|
+    t.bigint "pizza_part_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
+    t.index ["locale"], name: "index_pizza_part_translations_on_locale"
+    t.index ["pizza_part_id"], name: "index_pizza_part_translations_on_pizza_part_id"
+  end
+
+  create_table "pizza_parts", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price", null: false
+    t.string "category", limit: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "product_translations", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "locale", null: false
@@ -43,8 +63,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_231744) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.decimal "price"
-    t.integer "stock"
+    t.decimal "price", null: false
+    t.integer "stock", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
