@@ -1,14 +1,80 @@
-<p style="color: green"><%= notice %></p>
+<% if notice.present? %>
+  <div class="toast show border-primary position-absolute bottom-0 end-0 m-4" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="<%= image_path("pizza_logo.svg") %>" class="rounded me-2" alt="pizza icon" width="25px" height="25px">
+      <strong class="me-auto">Cargo Pizzas</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      <%= notice %>
+    </div>
+  </div>
+<% end %>
 
-<h1>Products</h1>
+<div class="px-5 pt-3 pb-4 bg-dark rounded shadow">
+  
+  <h1 class="text-center"><%= t(:products) %></h1>
+  
+  <div id="products">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th scope="col"><%= t(:name) %></th>
+            <th scope="col"><%= t(:description) %></th>
+            <th scope="col"><%= t(:price) %></th>
+            <th scope="col"><%= t(:Stock) %></th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.description %></td>
+              <td><%= product.price %></td>
+              <td><%= product.stock %></td>
+              <td class="text-center">
+                <a class="btn btn-success" href="<%= edit_product_path(product) %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+                  </svg>
+                  <%= t(:edit) %>
+                </a>
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= product.id %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>
+                  </svg>
+                  <%= t(:delete) %>
+                </button>
+              </td>
+            </tr>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
-  <% end %>
+            <div class="modal fade" id="exampleModal<%= product.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Dialogo de eliminacion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= t(:delete_message) %>
+                    <strong> <%= product.name %> </strong>?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
+                    <%= button_to t(:delete), product, method: :delete, class: "btn btn-danger" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <%= link_to t(:new_product), new_product_path, class: "btn btn-primary" %>
 </div>
-
-<%= link_to "New product", new_product_path %>

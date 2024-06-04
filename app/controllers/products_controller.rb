@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :breadCrumb
 
   # GET /products or /products.json
   def index
@@ -13,10 +14,12 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @action_name = t(:create_product)
   end
 
   # GET /products/1/edit
   def edit
+    @action_name = t(:update_product)
   end
 
   # POST /products or /products.json
@@ -66,5 +69,9 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:name, :description, :price, :stock)
+    end
+
+    def breadCrumb
+      @breadCrumb = t(:products)
     end
 end
