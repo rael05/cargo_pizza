@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show edit update destroy ]
+  before_action :breadCrumb
 
   # GET /customers or /customers.json
   def index
@@ -12,11 +13,13 @@ class CustomersController < ApplicationController
 
   # GET /customers/new
   def new
+    @action_name = t(:create_customer)
     @customer = Customer.new
   end
 
   # GET /customers/1/edit
   def edit
+    @action_name = t(:update_customer)
   end
 
   # POST /customers or /customers.json
@@ -66,5 +69,9 @@ class CustomersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def customer_params
       params.require(:customer).permit(:name, :last_name, :address, :mail, :phone)
+    end
+
+    def breadCrumb
+      @breadCrumb = t(:customers)
     end
 end

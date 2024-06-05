@@ -5,7 +5,7 @@ class CreateCustomers < ActiveRecord::Migration[7.1]
       t.string :last_name
       t.text :address
       t.string :mail
-      t.string :phone
+      t.string :phone, limit: 8
 
       t.timestamps
     end

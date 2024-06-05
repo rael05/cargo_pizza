@@ -16,13 +16,16 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= t(:products) %>
           </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="<%= pizza_sizes_path %>">Pizza <%= t(:pizza_size) %>s</a></li>
-          <li><a class="dropdown-item" href="<%= pizza_flavors_path %>">Pizza <%= t(:pizza_flavor) %>s</a></li>
-          <li><a class="dropdown-item" href="<%= pizza_borders_path %>">Pizza <%= t(:pizza_border) %>s</a></li>
-          <li><a class="dropdown-item" href="<%= products_path %>"><%= t(:others) %></a></li>
-        </ul>
-      </li>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<%= pizza_sizes_path %>">Pizza <%= t(:pizza_size) %>s</a></li>
+            <li><a class="dropdown-item" href="<%= pizza_flavors_path %>">Pizza <%= t(:pizza_flavor) %>s</a></li>
+            <li><a class="dropdown-item" href="<%= pizza_borders_path %>">Pizza <%= t(:pizza_border) %>s</a></li>
+            <li><a class="dropdown-item" href="<%= products_path %>"><%= t(:others) %></a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= customers_path %>"><%= t(:customers) %></a>
+        </li>
       </ul>
 
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto me-2">
@@ -41,12 +44,12 @@
         <% if employee_signed_in? %>
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Employee Name
+                <%= current_employee.full_name %>
               </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Action</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <%= button_to(t(:log_out), destroy_employee_session_path, method: :delete, class: 'dropdown-item') %>
             </ul>
           </li>
         <% else %>

@@ -11,32 +11,32 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label t(:name), style: "display: block", class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label t(:last_name), style: "display: block", class: "form-label" %>
+    <%= form.text_field :last_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label t(:address), style: "display: block", class: "form-label" %>
+    <%= form.text_area :address, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label t(:mail), style: "display: block", class: "form-label" %>
+    <%= form.email_field :mail, class: "form-control", placeholder: t(:mail_example) %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label t(:phone), style: "display: block", class: "form-label" %>
+    <%= form.text_field :phone, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :last_name, style: "display: block" %>
-    <%= form.text_field :last_name %>
-  </div>
-
-  <div>
-    <%= form.label :address, style: "display: block" %>
-    <%= form.text_area :address %>
-  </div>
-
-  <div>
-    <%= form.label :mail, style: "display: block" %>
-    <%= form.text_field :mail %>
-  </div>
-
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit @action_name, class: "btn btn-primary" %>
   </div>
 <% end %>

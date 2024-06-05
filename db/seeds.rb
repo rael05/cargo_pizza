@@ -30,7 +30,7 @@ pizza_parts3.update({name: "Big pizza size", description: "Big size pizza about 
 pizza_parts4 = PizzaPart.create({name: "Pizza de tamaño familiar", description: "Pizza de tamaño familiar de unas 16 pulgadas, cortadas en 10 rebanadas", price: 6.99, category: 'S', locale: :es})
 pizza_parts4.update({name: "Family pizza size", description: "Family size pizza about 16 inches, cut in 10 slices", locale: :en})
 
-# Pizza part 
+# Pizza Flavors
 
 pizza_parts5 = PizzaPart.create({name: "Queso Mozzarella", description: "Deliciosa pizza hecha con el ingrediente Queso Mozzarella", price: 4.44, category: 'F', locale: :es})
 pizza_parts5.update({name: "Mozzarella Cheese", description: "Delicious pizza made with the topping Mozzarella Cheese", locale: :en})
@@ -51,4 +51,13 @@ pizza_parts9.update({name: "Toasted Bread Edge", description: "Delicious Toasted
 
 pizza_parts10 = PizzaPart.create({name: "Borde con rebanadas de chorizo", description: "Delicioso Borde con rebanadas de chorizo", price: 4.35, category: 'B', locale: :es})
 pizza_parts10.update({name: "Border with chorizo slices", description: "Delicious Border with chorizo slices", locale: :en})
-         
+
+Customer.create({name: "Javier", last_name: "Verstappen", phone: "12345678", address: "De cine blanco 2c al norte", mail: "ejemplo@hotmail.com"})
+Customer.create({name: "Manuel", last_name: "Perez", phone: "12235678", address: "Del cine golzales 3 c al norte 2 al oeste", mail: "mauel@gmail.com"})
+Customer.create({name: "Gerson", last_name: "Lopez", phone: "12341678", address: "De los semaforos del rigoverto 2c al este", mail: "g.lopez@hotmail.com"})
+Customer.create({name: "Pluvio", last_name: "Leiva", phone: "12455678", address: "De montes los Olivos, 2c al norte", mail: "esmeralda@hotmail.com"})
+
+Employee.create({email: 'normal1@hotmail.com', password: '123456', role: 'N', first_name: 'Jeorge', last_name: 'Miranda', phone: '12312312'})
+Employee.create({email: 'normal2@hotmail.com', password: '123456', role: 'N', first_name: 'Pedro', last_name: 'Rey', phone: '11315332'})
+Employee.create({email: 'boss1@hotmail.com', password: '123456', role: 'B', first_name: 'Angel', last_name: 'De la cruz', phone: '11715622'})
+Employee.create({email: 'boss2@hotmail.com', password: '123456', role: 'B', first_name: 'Colm', last_name: 'Stone', phone: '11345735'})
