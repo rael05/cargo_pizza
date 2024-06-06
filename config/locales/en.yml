@@ -76,3 +76,6 @@ en:
   password: "Password"
   min_char: "characters minimum"
   log_out: "Log out"
+  type_permission_error: "Invalid Role"
+  new_order: "New Order"
+  orders: "Orders"

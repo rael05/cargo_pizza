@@ -47,3 +47,6 @@ es:
   password: "Contraseña"
   min_char: "caracteres mínimos"
   log_out: "Cerrar sesión"
+  type_permission_error: "Tipo de permiso inválido"
+  new_order: "Nueva Orden"
+  orders: "Órdenes"

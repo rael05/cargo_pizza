@@ -1,0 +1,326 @@
+<div class="px-5 pt-3 pb-4 bg-dark rounded shadow">
+    <h1 class="text-center">
+        <%= t(:new_order) %>
+    </h1>
+
+    <form>
+        <h3>Informacion del cliente</h3>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label class="form-label">Nombre del cliente</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" list="fullName" disabled id="customerFullName">
+                    <button class="btn btn-outline-light" type="button" data-bs-toggle="modal"
+                        data-bs-target="#searchCustomer">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="inputState" class="form-label">Correo</label>
+                <input type="text" class="form-control" disabled id="customerMail">
+            </div>
+            <div class="col-md-2">
+                <label for="inputZip" class="form-label">Telefono</label>
+                <input type="text" class="form-control" disabled id="customerPhone">
+            </div>
+            <div class="col-md-4">
+                <label for="inputZip" class="form-label">Direccion</label>
+                <div class="input-group">
+                    <textarea class="form-control" aria-label="With textarea" disabled id="customerAddress"></textarea>
+                    <button class="btn btn-outline-light" type="button" data-bs-toggle="modal"
+                        data-bs-target="#customerModal">
+                        Nuevo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <h3>Lista de Pizzas</h3>
+
+        <div class="position-relative" id="pizza_container">
+            <div class="row g-3 mb-3 pizza_item" id="pizza1">
+                <div class="col-md-5">
+                    <label class="form-label">Tamaño de Pizza</label>
+                    <div class="input-group">
+                        <select class="form-select item_select" aria-label="Default select example">
+                            <option selected>Seleccione un tamaño</option>
+                            <% @size_list.each do |size| %>
+                                <option value="<%= size[0] %>">
+                                    <%= size[1] %>
+                                </option>
+                                <% end %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputState" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control item_quantity" disabled min="1">
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Precio</label>
+                    <input type="text" class="form-control item_price" disabled>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Sub total</label>
+                    <input type="text" class="form-control item_subtotal" disabled>
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <a class="text-danger delete_pizza" onclick="delete_item('pizza1', 'pizza')" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+                            class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <a class="position-absolute bottom-0 end-0 mt-5 z-10 z-1" onclick="add_new_item('pizza')" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+                    class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+            </a>
+            <div class="row g-3 mb-3 pizza_border_item" id="pizza_border1">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label class="form-label">Borde de Pizza</label>
+                    <div class="input-group">
+                        <select class="form-select item_select" aria-label="Default select example">
+                            <option selected>Seleccione un border</option>
+                            <% @pizza_borders.each do |flavor| %>
+                                <option value="<%= flavor[0] %>">
+                                    <%= flavor[1] %>
+                                </option>
+                                <% end %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputState" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control item_quantity" disabled min="1" max="1">
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Precio</label>
+                    <input type="text" class="form-control item_price" disabled>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Sub total</label>
+                    <input type="text" class="form-control item_subtotal" disabled>
+                </div>
+            </div>
+            <div id="pizza_falvor_container" class="position-relative">
+                <div class="row g-3 mb-3 pizza_falvor_item" id="pizza_falvor1">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label class="form-label">Sabor de Pizza</label>
+                        <div class="input-group">
+                            <select class="form-select item_select" aria-label="Default select example">
+                                <option selected>Seleccione un sabor</option>
+                                <% @pizza_flavors.each do |flavor| %>
+                                    <option value="<%= flavor[0] %>">
+                                        <%= flavor[1] %>
+                                    </option>
+                                    <% end %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputState" class="form-label">Cantidad</label>
+                        <input type="number" class="form-control item_quantity" disabled min="1" max="4">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputZip" class="form-label">Precio</label>
+                        <input type="text" class="form-control item_price" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputZip" class="form-label">Sub total</label>
+                        <input type="text" class="form-control item_subtotal" disabled>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <a class="text-danger delete_pizza_falvor" onclick="delete_item('pizza_falvor1', 'pizza_falvor')" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+                                class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <a class="position-absolute bottom-0 end-0 mt-1 pe-5 me-5" onclick="add_new_item('pizza_falvor')" role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+                        class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <h3>Lista de Productos</h3>
+
+        <div class="position-relative" id="product_container">
+            <div class="row g-3 mb-3 product_item" id="product1">
+                <div class="col-md-5">
+                    <label class="form-label">Producto</label>
+                    <div class="input-group">
+                        <select class="form-select item_select" aria-label="Default select example">
+                            <option selected>Seleccione un producto</option>
+                            <% @product_list.each do |product| %>
+                                <option value="<%= product[0] %>">
+                                    <%= product[1] %>
+                                </option>
+                                <% end %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputState" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control item_quantity" disabled min="1">
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Precio</label>
+                    <input type="text" class="form-control item_price" disabled>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Sub total</label>
+                    <input type="text" class="form-control item_subtotal" disabled>
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <a class="text-danger delete_product" onclick="delete_item('product1', 'product')" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+                            class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <a class="position-absolute bottom-0 end-0 mt-1" onclick="add_new_item('product')" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor"
+                    class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+            </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear Orden</button>
+    </form>
+</div>
+
+<div class="modal fade" id="searchCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar Cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Cliente:</label>
+                        <input type="text" class="form-control" id="customerSearch"
+                            placeholder="Escribe para buscar...">
+                        <p class="ms-1 text-danger d-none" id="message-customer"><strong>No se encontro ningun
+                                cliente.</strong></p>
+
+                    </div>
+                    <div class="mb-3">
+                        <p class="text-center">Haz clic en uno de los clientes</p>
+                        <table class="table table-hover" id="customer_table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Correo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @customer_list.each do |customer| %>
+                                    <tr onclick="fill_customer('<%= customer.id %>')" role="button">
+                                        <td>
+                                            <%= customer.name %>
+                                        </td>
+                                        <td>
+                                            <%= customer.last_name %>
+                                        </td>
+                                        <td>
+                                            <%= customer.phone %>
+                                        </td>
+                                        <td>
+                                            <%= customer.mail %>
+                                        </td>
+                                    </tr>
+                                    <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">
+                            <%= t(:name) %>:
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">
+                            <%= t(:last_name) %>:
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">
+                            <%= t(:address) %>:
+                        </label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">
+                            <%= t(:mail) %>:
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">
+                            <%= t(:phone) %>:
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= javascript_include_tag 'new_order' %>

@@ -1,0 +1,1 @@
+json.item_info @size_info

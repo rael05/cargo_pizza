@@ -9,6 +9,12 @@ class Employee < ApplicationRecord
     B: :boss
   }
 
+  def role_validator
+    if TYPE_PERMISSION[role.to_sym].nil?
+      errors.add(:role, I18n.translate(:type_permission_error))
+    end
+  end
+
   def full_name
     [first_name, last_name].join(" ")
   end

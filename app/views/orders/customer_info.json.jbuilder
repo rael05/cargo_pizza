@@ -1,0 +1,1 @@
+json.customer_info @customer_info
