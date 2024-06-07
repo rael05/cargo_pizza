@@ -58,20 +58,66 @@ const add_new_item = (item_name) => {
     const last_item = list_items[list_items.length - 1]
     let new_item = last_item.cloneNode(true);
 
-    const new_id = parseInt(last_item.id.replace(item_name, "")) + 1;
-    new_item.id = item_name + new_id;
+    let id_number = last_item.id.replace(item_name, "");
+    let new_id;
+    if (id_number.includes("_")) {
+        new_id = parseInt(id_number.split("_")[id_number.split("_").length - 1]) + 1;
+        new_item.setAttribute("id", item_name + "_" + new_id);
+        new_item.getElementsByClassName("delete_" + item_name + "1")[0].setAttribute("onClick", `delete_item('${item_name}_${new_id}', '${item_name}')`);
+    } else {
+        new_id = parseInt(id_number) + 1;
+        new_item.setAttribute("id", item_name + new_id);
+        new_item.getElementsByClassName("delete_" + item_name)[0].setAttribute("onClick", `delete_item('${item_name + new_id}', '${item_name}')`);
+    }
+
     clean_item_fields(new_item);
-    new_item.getElementsByClassName("delete_" + item_name)[0].onclick = () => delete_item((item_name + new_id), item_name);
     document.getElementById(item_name + "_container").appendChild(new_item);
 
     add_events_items(new_item, item_name);
+    if (item_name === "pizza") {
+        const pizza_id = "pizza" + new_id + "_1";
+        const border_id = "pizza_border" + new_id + "_1";
+        const flavor_id = "pizza_flavor" + new_id + "_1";
+
+        new_item.getElementsByClassName("delete_" + item_name)[0].setAttribute("onClick", `delete_pizza_size(['${pizza_id}', '${border_id}', '${flavor_id}'])`);
+        add_new_pizza_border(item_name, new_id);
+        add_new_pizza_flavor(item_name, new_id);
+    }
 }
+
+const add_new_pizza_border = (pizza_container, id_contianer) => {
+    const last_item = document.getElementsByClassName("pizza_border_item")[0];
+    let new_item = last_item.cloneNode(true);
+    new_item.setAttribute("id", "pizza_border" + id_contianer + "_1");
+
+    clean_item_fields(new_item);
+    document.getElementById(pizza_container + "_container").appendChild(new_item);
+    add_events_items(new_item, "pizza_border_item");
+};
+
+const add_new_pizza_flavor = (pizza_container, id_contianer) => {
+    const last_item = document.getElementsByClassName("pizza_flavor_item")[0];
+    let new_item = last_item.cloneNode(true);
+    new_item.setAttribute("id", "pizza_flavor1" + id_contianer + "_1");
+
+    clean_item_fields(new_item);
+    document.getElementById(pizza_container + "_container").appendChild(new_item);
+    add_events_items(new_item, "pizza_flavor_item");
+};
 
 const delete_item = (item_id, item_type) => {
     if (document.getElementsByClassName(item_type + "_item").length > 1) {
         document.getElementById(item_id).remove();
     }
-}
+};
+
+const delete_pizza_size = (array_item_id) => {
+    if (document.getElementsByClassName("pizza_item").length > 1) {
+        for(let item_id of array_item_id) {
+            document.getElementById(item_id).remove();
+        }
+    }
+};
 
 const add_events_items = (element, item_name) => {
     element.getElementsByClassName("item_select")[0].addEventListener("change", (event) => {
@@ -97,8 +143,8 @@ const change_tbody = (table_name, new_tbody) => {
 
 add_events_items(document.getElementById("pizza1"), "pizza");
 add_events_items(document.getElementById("product1"), "product");
-add_events_items(document.getElementById("pizza_falvor1"), "pizza_falvor");
-add_events_items(document.getElementById("pizza_border1"), "pizza_border");
+add_events_items(document.getElementById("pizza_flavor1_1"), "pizza_flavor");
+add_events_items(document.getElementById("pizza_border1_1"), "pizza_border");
 
 const default_tbody_customer = document.getElementById("customer_table").getElementsByTagName('tbody')[0];
 
