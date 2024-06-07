@@ -33,7 +33,7 @@
                             </small>
                         </div>
                     </div>
-                    <a href="" class="btn btn-danger">PDF</a>
+                    <a href="<%= "#{search_by_customer_path(format: :pdf)}?customer_id=#{@customer.id}" %>" class="btn btn-danger">PDF</a>
                 </div>
                 <div class="col-8">
                     <h4 class="mb-3">Ordenes de <strong><%= @customer.full_name %></strong></h4>

@@ -32,9 +32,15 @@ class OrdersController < ApplicationController
         @current_order = Order.find(params[:order_id])
     end
 
-    def serach_by_customer
+    def search_by_customer
         if params[:customer_id].present?
             @customer = Customer.find(params[:customer_id])
+        end
+        respond_to do |format|
+            format.html
+            format.pdf do
+                render pdf: "#{@customer.name}_#{@customer.last_name}_#{DateTime.now.strftime("%d/%m/%Y_%I:%M:%s")}"
+            end
         end
     end
 

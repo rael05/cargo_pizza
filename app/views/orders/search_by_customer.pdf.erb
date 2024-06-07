@@ -1,0 +1,49 @@
+<h1 style="text-align: center;">Informe de ordenes por cliente</h1>
+<div style="width: 100%;">
+    <div style="width: 40%; float: left;">
+        <h3 style="text-align: center;"><%= @customer.full_name %></h3>
+        <p><strong>Celular:</strong> <%= @customer.phone_display %></p>
+        <p><strong>Correo:</strong> <%= @customer.mail %></p>
+        <p><strong>Direccion:</strong> <%= @customer.address %></p>
+        
+    </div>
+    <div style="width: 60%; float: right;">
+        <h4 style="text-align: center;">Ordenes de <strong><%= @customer.full_name %></strong></h4>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Numero</th>
+                    <th scope="col">Total Pizzas</th>
+                    <th scope="col">Total Productos</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @customer.orders.each do |order| %>
+                    <tr>
+                        <td>
+                            <%= order.id %>
+                        </td>
+                        <td>
+                            <%= order.pizza_total %>
+                        </td>
+                        <td>
+                            <%= order.prodcut_total %>
+                        </td>
+                        <td>
+                            <%= order.total_display %>
+                        </td>
+                    </tr>
+                <% end %>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th scope="row">Total de ordenes:</th>
+                    <th scope="row">
+                        <%= @customer.orders.count %>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

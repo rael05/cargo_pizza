@@ -35,7 +35,7 @@
           <%= link_to('EN', { locale: :en }, class: I18n.locale == :en ? 'nav-link active' : 'nav-link')%>
         </li>
       </ul>
-      <form class="d-flex" role="search" action="<%= serach_by_customer_path %>" method="GET">
+      <form class="d-flex" role="search" action="<%= search_by_customer_path %>" method="GET">
         <input class="form-control me-2" type="search" placeholder="<%= t(:search_by_customer) %>" aria-label="Search" name="customer_id" id="customer_id">
         <button class="btn btn-outline-success" type="submit"><%= t(:search) %></button>
       </form>

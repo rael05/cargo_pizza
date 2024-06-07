@@ -75,3 +75,7 @@ gem 'dartsass-sprockets'
 gem 'jquery-rails'
 
 gem 'globalize'
+
+gem 'wicked_pdf'
+
+gem 'wkhtmltopdf-binary'
