@@ -52,12 +52,26 @@ pizza_parts9.update({name: "Toasted Bread Edge", description: "Delicious Toasted
 pizza_parts10 = PizzaPart.create({name: "Borde con rebanadas de chorizo", description: "Delicioso Borde con rebanadas de chorizo", price: 4.35, category: 'B', locale: :es})
 pizza_parts10.update({name: "Border with chorizo slices", description: "Delicious Border with chorizo slices", locale: :en})
 
-Customer.create({name: "Javier", last_name: "Verstappen", phone: "12345678", address: "De cine blanco 2c al norte", mail: "ejemplo@hotmail.com"})
-Customer.create({name: "Manuel", last_name: "Perez", phone: "12235678", address: "Del cine golzales 3 c al norte 2 al oeste", mail: "mauel@gmail.com"})
+customer1 = Customer.create({name: "Javier", last_name: "Verstappen", phone: "12345678", address: "De cine blanco 2c al norte", mail: "ejemplo@hotmail.com"})
+customer2 = Customer.create({name: "Manuel", last_name: "Perez", phone: "12235678", address: "Del cine golzales 3 c al norte 2 al oeste", mail: "mauel@gmail.com"})
 Customer.create({name: "Gerson", last_name: "Lopez", phone: "12341678", address: "De los semaforos del rigoverto 2c al este", mail: "g.lopez@hotmail.com"})
 Customer.create({name: "Pluvio", last_name: "Leiva", phone: "12455678", address: "De montes los Olivos, 2c al norte", mail: "esmeralda@hotmail.com"})
 
-Employee.create({email: 'normal1@hotmail.com', password: '123456', role: 'N', first_name: 'Jeorge', last_name: 'Miranda', phone: '12312312'})
-Employee.create({email: 'normal2@hotmail.com', password: '123456', role: 'N', first_name: 'Pedro', last_name: 'Rey', phone: '11315332'})
+employee1 = Employee.create({email: 'normal1@hotmail.com', password: '123456', role: 'N', first_name: 'Jeorge', last_name: 'Miranda', phone: '12312312'})
+employee2 = Employee.create({email: 'normal2@hotmail.com', password: '123456', role: 'N', first_name: 'Pedro', last_name: 'Rey', phone: '11315332'})
 Employee.create({email: 'boss1@hotmail.com', password: '123456', role: 'B', first_name: 'Angel', last_name: 'De la cruz', phone: '11715622'})
 Employee.create({email: 'boss2@hotmail.com', password: '123456', role: 'B', first_name: 'Colm', last_name: 'Stone', phone: '11345735'})
+
+order1 = Order.create({customer_id: customer1.id, employee_id: employee2.id, total: 20})
+order2 = Order.create({customer_id: customer2.id, employee_id: employee2.id, total: 6.045, status: 'R'})
+order3 = Order.create({customer_id: customer2.id, employee_id: employee1.id, total: 16.05, status: 'D' })
+
+PizzaDetail.create({order_id: order1.id, pizza_part_id: pizza_parts5.id, unit_price: 15, quantity: 1, sub_total: 15})
+ProductDetail.create({order_id: order1.id, product_id: first_product.id, unit_price: 2.5, quantity: 2, sub_total: 5})
+
+PizzaDetail.create({order_id: order2.id, pizza_part_id: pizza_parts9.id, unit_price: pizza_parts9.price, quantity: 1, sub_total: pizza_parts9.price})
+PizzaDetail.create({order_id: order2.id, pizza_part_id: pizza_parts6.id, unit_price: pizza_parts6.price, quantity: 0.5, sub_total: pizza_parts6.price * 0.5})
+PizzaDetail.create({order_id: order2.id, pizza_part_id: pizza_parts7.id, unit_price: pizza_parts7.price, quantity: 0.5, sub_total: pizza_parts7.price * 0.5})
+
+ProductDetail.create({order_id: order3.id, product_id: second_product.id, unit_price: second_product.price, quantity: 3, sub_total: second_product.price * 3})
+ProductDetail.create({order_id: order3.id, product_id: third_product.id, unit_price: third_product.price, quantity: 3, sub_total: third_product.price * 3})

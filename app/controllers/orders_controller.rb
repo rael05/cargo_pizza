@@ -28,6 +28,10 @@ class OrdersController < ApplicationController
         @customer_search = Customer.where('lower(name) LIKE :search OR lower(last_name) LIKE :search OR lower(phone) LIKE :search OR lower(mail) LIKE :search', search: "%#{params[:search_value]}%".downcase)
     end
 
+    def show
+        @current_order = Order.find(params[:order_id])
+    end
+
     private
     def breadCrumb
         @breadCrumb = t(:orders)

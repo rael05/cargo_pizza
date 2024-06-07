@@ -79,3 +79,6 @@ en:
   type_permission_error: "Invalid Role"
   new_order: "New Order"
   orders: "Orders"
+  preparation: "Preparation"
+  route: "Route"
+  delivered: "Delivered"

@@ -1,4 +1,6 @@
 class PizzaPart < ApplicationRecord
+    has_many :pizza_details
+
     translates :name, :description
 
     validate :category_validator
@@ -17,5 +19,9 @@ class PizzaPart < ApplicationRecord
         if CATEGORIES_NAME[category.to_sym].nil?
             errors.add(:category, I18n.translate(:category_error))
         end
+    end
+
+    def category_with_name
+        category_name + ": " + name
     end
 end

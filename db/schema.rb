@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_220629) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_07_003527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_220629) do
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "employee_id", null: false
+    t.float "total"
+    t.string "status", limit: 1, default: "P"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["employee_id"], name: "index_orders_on_employee_id"
+  end
+
+  create_table "pizza_details", force: :cascade do |t|
+    t.bigint "pizza_part_id", null: false
+    t.bigint "order_id", null: false
+    t.float "unit_price"
+    t.float "quantity"
+    t.float "sub_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_pizza_details_on_order_id"
+    t.index ["pizza_part_id"], name: "index_pizza_details_on_pizza_part_id"
+  end
+
   create_table "pizza_part_translations", force: :cascade do |t|
     t.bigint "pizza_part_id", null: false
     t.string "locale", null: false
@@ -58,6 +81,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_220629) do
     t.string "category", limit: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "product_details", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "order_id", null: false
+    t.float "unit_price"
+    t.integer "quantity"
+    t.float "sub_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_product_details_on_order_id"
+    t.index ["product_id"], name: "index_product_details_on_product_id"
   end
 
   create_table "product_translations", force: :cascade do |t|
@@ -80,4 +115,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_220629) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "employees"
+  add_foreign_key "pizza_details", "orders"
+  add_foreign_key "pizza_details", "pizza_parts"
+  add_foreign_key "product_details", "orders"
+  add_foreign_key "product_details", "products"
 end

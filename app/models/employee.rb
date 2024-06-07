@@ -4,6 +4,8 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :orders
+
   TYPE_PERMISSION = {
     N: :normal,
     B: :boss

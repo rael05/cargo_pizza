@@ -50,3 +50,6 @@ es:
   type_permission_error: "Tipo de permiso inválido"
   new_order: "Nueva Orden"
   orders: "Órdenes"
+  preparation: "Preparación"
+  route: "Ruta"
+  delivered: "Entregado"
