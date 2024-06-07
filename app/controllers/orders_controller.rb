@@ -32,6 +32,12 @@ class OrdersController < ApplicationController
         @current_order = Order.find(params[:order_id])
     end
 
+    def serach_by_customer
+        if params[:customer_id].present?
+            @customer = Customer.find(params[:customer_id])
+        end
+    end
+
     private
     def breadCrumb
         @breadCrumb = t(:orders)

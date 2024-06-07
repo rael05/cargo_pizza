@@ -1,0 +1,81 @@
+<% if @customer.nil? %>
+    <h1>No se enconto el cliente</h1>
+<% else %>
+    <div class="px-5 pt-3 pb-4 bg-dark rounded shadow">
+        <h1 class="text-center mb-3">Informe de ordenes por cliente</h1>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card border-dark mb-3" style="width: 100%;">
+                        <div class="card-header">
+                            <h2 class="card-title m-0">
+                                <%= @customer.full_name %>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text mb-0">
+                                <strong>Celular:</strong> <%= @customer.phone_display %>
+                            </p>
+                            <p class="card-text">
+                                <strong>Correo:</strong> <%= @customer.mail %>
+                            </p>
+                            <h6 class="card-subtitle mb-2 text-body-secondary text-start">
+                                Direccion:
+                            </h6>
+                            <p class="card-text">
+                                <%= @customer.address %>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">
+                                Fecha de registro: <%= @customer.created_at.strftime("%d/%m/%Y") %> <br>
+                                Hora de registro: <%= @customer.created_at.strftime("%I:%M%p") %>
+                            </small>
+                        </div>
+                    </div>
+                    <a href="" class="btn btn-danger">PDF</a>
+                </div>
+                <div class="col-8">
+                    <h4 class="mb-3">Ordenes de <strong><%= @customer.full_name %></strong></h4>
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Total Pizzas</th>
+                                <th scope="col">Total Productos</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <% @customer.orders.each do |order| %>
+                                <tr>
+                                    <td>
+                                        <%= order.id %>
+                                    </td>
+                                    <td>
+                                        <%= order.pizza_total %>
+                                    </td>
+                                    <td>
+                                        <%= order.prodcut_total %>
+                                    </td>
+                                    <td>
+                                        <%= order.total_display %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                            <tr>
+                                <th class="table-active"></th>
+                                <th class="table-active"></th>
+                                <th scope="row" class="table-active">Total de ordenes:</th>
+                                <th scope="row" class="table-active">
+                                    <%= @customer.orders.count %>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+

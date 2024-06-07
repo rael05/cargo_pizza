@@ -10,7 +10,13 @@
                         </h2>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Direccion a entregar:</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                            <% if @current_order.status == "D" %>
+                                Orden entregada en:
+                            <% else %>
+                                Direccion a entregar:
+                            <% end %>
+                        </h6>
                         <p class="card-text">
                             <%= @current_order.customer.address %>
                         </p>

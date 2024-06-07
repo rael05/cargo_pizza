@@ -2,6 +2,7 @@ es:
   hello: "Hola mundo"
   home: "Inicio"
   search: "Buscar"
+  search_by_customer: "Buscar Por Cliente"
   log_in: "Iniciar sesión"
   new_order: "Nueva Orden"
   products: "Productos"
