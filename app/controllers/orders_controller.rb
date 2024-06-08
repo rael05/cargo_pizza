@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
         @size_list = PizzaPart.where(category: "S").pluck(:id, :name)
         @pizza_flavors = PizzaPart.where(category: "F").pluck(:id, :name)
         @pizza_borders = PizzaPart.where(category: "B").pluck(:id, :name)
+        @order = Order.new
     end
 
     def size_info
@@ -44,8 +45,60 @@ class OrdersController < ApplicationController
         end
     end
 
+    def create
+        @order = Order.new(order_params)
+        unless @order.save!
+            render :new, status: :unprocessable_entity
+            return
+        end
+        order_total = 0
+        product_details_params.each do |product|
+            product_detail = ProductDetail.new(product.permit(:product_id, :quantity))
+            product_detail.order = @order
+            product_detail.unit_price = Product.find(product_detail.product_id).price
+            product_detail.sub_total = product_detail.unit_price * product_detail.quantity
+            unless product_detail.save!
+                @order.destroy
+                render :new, status: :unprocessable_entity
+                return
+            end
+            order_total += product_detail.sub_total
+        end
+        pizza_details_params.each do |pizza|
+            pizza_detail = PizzaDetail.new(pizza.permit(:pizza_part_id, :quantity))
+            pizza_detail.order = @order
+            pizza_detail.unit_price = PizzaPart.find(pizza_detail.pizza_part_id).price
+            pizza_detail.sub_total = pizza_detail.unit_price * pizza_detail.quantity
+            unless pizza_detail.save!
+                @order.destroy
+                render :new, status: :unprocessable_entity
+                return
+            end
+            order_total += pizza_detail.sub_total
+        end
+        unless @order.update!(total: order_total)
+            @order.destroy
+            render :new, status: :unprocessable_entity
+            return
+        end
+        redirect_to show_order_path(@order), notice: "Product was successfully created."
+    end
+
     private
     def breadCrumb
         @breadCrumb = t(:orders)
+    end
+
+    def order_params
+        #total
+        params.require(:order).permit(:customer_id, :employee_id)
+    end
+
+    def product_details_params
+        params.require(:product_detail)
+    end
+
+    def pizza_details_params
+        params.require(:pizza_detail)
     end
 end

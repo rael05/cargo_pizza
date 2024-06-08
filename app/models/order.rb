@@ -1,8 +1,8 @@
 class Order < ApplicationRecord
   belongs_to :customer
   belongs_to :employee
-  has_many :product_details
-  has_many :pizza_details
+  has_many :product_details, dependent: :delete_all
+  has_many :pizza_details, dependent: :delete_all
 
   STATUS_VALUES = {
     P: :preparation,

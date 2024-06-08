@@ -13,9 +13,10 @@ const customer_info = async (customer_id) => {
 const fill_customer = (value_search) => {
     customer_info(value_search).then(response => {
         document.getElementById("customerFullName").value = response.customer_info.name + " " + response.customer_info.last_name;
-        document.getElementById("customerMail").value = response.customer_info.mail
-        document.getElementById("customerPhone").value = response.customer_info.phone
-        document.getElementById("customerAddress").value = response.customer_info.address
+        document.getElementById("customerMail").value = response.customer_info.mail;
+        document.getElementById("customerPhone").value = response.customer_info.phone;
+        document.getElementById("customerAddress").value = response.customer_info.address;
+        document.getElementById("order_customer_id").value = response.customer_info.id;
         myModal.hide();
     });
 };
@@ -35,6 +36,7 @@ const fill_item = (data, father_element) => {
         return;
     }
     father_element.getElementsByClassName("item_quantity")[0].value = 1;
+    father_element.getElementsByClassName("item_id")[0].value = data.item_info.id;
     father_element.getElementsByClassName("item_quantity")[0].disabled = false;
     father_element.getElementsByClassName("item_price")[0].value = data.item_info.price || '';
     update_item_total(father_element);
