@@ -64,45 +64,4 @@
   </div>
 </nav>
 
-<script>
-  // suggestion  --> div
-  // customer_id --> input
-
-  const customer_search_for_nav = async (search_value) => {
-    const response = await fetch(`/orders/search_customers.json?search_value=${search_value}`);
-    return await response.json();
-  };
-
-  const clean_element = (element) => (element.innerHTML = "");
-
-  const show_element = (element) => (element.classList.remove("visually-hidden"));
-
-  const hide_element = (element) => (element.classList.add("visually-hidden"));
-
-  document.getElementById("customer_id").addEventListener("input", (event) => {
-    const suggestion_div = document.getElementById("suggestions");
-    if (event.target.value.length <= 2) {
-      hide_element(suggestion_div);
-      return;
-    }
-    customer_search_for_nav(event.target.value).then(response => {
-      const customer_length = response.customers.length;
-      if (customer_length === 0) { return; }
-
-      clean_element(suggestion_div);
-      show_element(suggestion_div)
-      for(let i = 0; i < response.customers.length ; i++) {
-        const new_item = document.createElement('a');
-        new_item.setAttribute("class", "text-decoration-none text-light");
-        new_item.href = `/orders/search_by_customer?customer_id=${response.customers[i].id}`;
-        new_item.innerHTML = `${response.customers[i].name} ${response.customers[i].last_name}`
-        suggestion_div.appendChild(new_item)
-      }
-    })
-  });
-
-  document.getElementById("customer_id").addEventListener("focus", (event) => {
-    const suggestion_div = document.getElementById("suggestions");
-    show_element(suggestion_div);
-  });
-</script>
+<%= javascript_include_tag 'navbar' %>

@@ -5,3 +5,4 @@ import "controllers"
 //= require popper
 //= require bootstrap-sprockets
 //= stub 'new_order'
+//= stub 'navbar'

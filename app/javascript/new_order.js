@@ -115,7 +115,7 @@ const delete_item = (item_id, item_type) => {
 
 const delete_pizza_size = (array_item_id) => {
     if (document.getElementsByClassName("pizza_item").length > 1) {
-        for(let item_id of array_item_id) {
+        for (let item_id of array_item_id) {
             document.getElementById(item_id).remove();
         }
     }
@@ -157,16 +157,16 @@ document.getElementById("customerSearch").addEventListener("input", (event) => {
     }
     if (event.target.value.length >= 3) {
         customer_search(event.target.value).then(response => {
-            if(response.customers.length === 0) {
+            if (response.customers.length === 0) {
                 document.getElementById("message-customer").classList.remove("d-none");
                 return;
             }
-            
+
             document.getElementById("message-customer").classList.add("d-none");
             const new_tbody = document.createElement('tbody');
             let tbody_content = '';
 
-            for (let i = 0; i < response.customers.length ; i++) {
+            for (let i = 0; i < response.customers.length; i++) {
                 tbody_content += `<td>${response.customers[i].name}</td>`
                 tbody_content += `<td>${response.customers[i].last_name}</td>`
                 tbody_content += `<td>${response.customers[i].phone}</td>`
