@@ -40,6 +40,11 @@
           <%= f.text_field :phone, class: "form-control" %>
         </div>
 
+        <div class="mb-3">
+          <%= f.label :role, style: "display: block", class: "form-label" %>
+          <%= f.select(:role, options_for_select(Employee::TYPE_PERMISSION.map { |key, value| [t(value), key] }), {}, class: "form-select") %>
+        </div>
+
         <div class="actions mb-4">
           <%= f.submit "Sign up", class: "btn btn-primary" %>
         </div>

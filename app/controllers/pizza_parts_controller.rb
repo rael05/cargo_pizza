@@ -1,4 +1,5 @@
 class PizzaPartsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_pizza_part, only: %i[ show edit update destroy ]
   before_action :categories_for_pizzas, only: %i[ new edit ]
 

@@ -23,6 +23,7 @@
             <th scope="col"><%= t(:address) %></th>
             <th scope="col"><%= t(:mail) %></th>
             <th scope="col"><%= t(:phone) %></th>
+            <th scope="col">Órdenes</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -32,6 +33,7 @@
               <td><%= customer.address %></td>
               <td><%= customer.mail %></td>
               <td><%= customer.phone %></td>
+              <td><%= customer.orders.count %></td>
               <td class="text-center">
                 <a class="btn btn-success" href="<%= edit_customer_path(customer) %>">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
